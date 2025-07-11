@@ -1,2 +1,2 @@
 # RScripts
-GitHub full of R scripts
+GitHub Repository full of R scripts!
