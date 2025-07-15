@@ -1,0 +1,47 @@
+### Question 1
+
+### Installing packages
+install.packages("MuMIn")
+library(MuMIn)
+
+### Loading in dataset
+install.packages("readr")
+library(readr)
+comu_morphology_qsci483 <- read_csv("Q Sci 483/Week 4/Data/comu_morphology_qsci483.csv")
+View(comu_morphology_qsci483)
+
+# Renaming csv file
+comu <- comu_morphology_qsci483
+View(comu)
+
+lm1 <- lm(bill_length ~ 1, data = comu)
+lm2 <- lm(bill_length ~ doy_sep, data = comu)
+lm3 <- lm(bill_length ~ region:doy_sep, data = comu)
+lm4 <- lm(bill_length ~ region + doy_sep, data = comu)
+lm5 <- lm(bill_length ~ region + region:doy_sep, data = comu)
+
+summary(lm1)
+summary(lm2)
+summary(lm3)
+summary(lm4)
+summary(lm5)
+
+AICc1 <- MuMIn::AICc(lm1)
+AICc2 <- MuMIn::AICc(lm2)
+AICc3 <- MuMIn::AICc(lm3)
+AICc4 <- MuMIn::AICc(lm4)
+AICc5 <- MuMIn::AICc(lm5)
+
+S <- c(AICc1, AICc2, AICc3, AICc4, AICc5)
+
+min <- min(S)
+min
+
+Z <- S - min
+
+Z2 <- exp(Z)
+
+L <- sum(Z2)
+
+SAw <- Z2/L
+SAw
